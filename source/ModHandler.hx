@@ -52,7 +52,7 @@ class ModHandler
 			savedModList = new Map<String, Bool>();
 			doSave = true;
 		}
-		for (modMetadata in Polymod.scan({MOD_DIRECTORY}))
+		for (modMetadata in Polymod.scan({modRoot: MOD_DIRECTORY}))
 		{
 			if (modMetadata.id == GLOBAL_MOD_ID)
 				continue;
