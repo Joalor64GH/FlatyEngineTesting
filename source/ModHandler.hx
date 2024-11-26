@@ -7,6 +7,8 @@ import lime.utils.Assets;
 import flixel.util.FlxSave;
 import polymod.Polymod;
 import polymod.fs.PolymodFileSystem;
+import polymod.backends.PolymodAssets.PolymodAssetType;
+import polymod.format.ParseRules;
 
 typedef Mod =
 {
@@ -24,6 +26,17 @@ class ModHandler
 	public static var fs(default, null):IFileSystem;
 
 	static var save:FlxSave;
+
+	private static final extensions:Map<String, PolymodAssetType> = [
+		'ogg' => AUDIO_GENERIC,
+		'mp3' => AUDIO_GENERIC,
+		'png' => IMAGE,
+		'xml' => TEXT,
+		'json' => TEXT,
+		'txt' => TEXT,
+		'ttf' => FONT,
+		'otf' => FONT
+	];
 
 	public static function init()
 	{
@@ -93,24 +106,34 @@ class ModHandler
 				dirs.push(mod.metadata.id);
 		}
 
-		// ADD YOUR CUSTOM LIBRARY PATHS HERE!!
-		var libs:Map<String, String> = ['shared' => ''];
-		@:privateAccess
-		for (lib in Assets.libraryPaths.keys())
-		{
-			if (!libs.exists(lib))
-				libs.set(lib, lib);
-		}
-
 		Polymod.init({
 			modRoot: MOD_DIRECTORY,
 			dirs: dirs,
 			customFilesystem: fs,
 			framework: OPENFL,
 			frameworkParams: {
-				assetLibraryPaths: libs,
+				assetLibraryPaths: [
+					"default" => "./preload", // ./preload
+					"songs" => "./songs", 
+					"shared" => "./", 
+					"week2" => "./week2", 
+					"week3" => "./week3", 
+					"week4" => "./week4", 
+					"week5" => "./week5", 
+					"week6" => "./week6", 
+					"week7" => "./week7"
+				],
 				coreAssetRedirect: 'assets'
-			}
+			},
+			parseRules: getParseRules(),
+			extensionMap: extensions,
+			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
+	}
+
+	public static function getParseRules():ParseRules {
+		final output:ParseRules = ParseRules.getDefault();
+		output.addType("txt", TextFileFormat.LINES);
+		return output != null ? output : null;
 	}
 }
