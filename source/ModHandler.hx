@@ -116,12 +116,12 @@ class ModHandler
 					"default" => "preload",
 					"songs" => "songs", 
 					"shared" => "shared", 
-					"week2" => "./week2", 
-					"week3" => "./week3", 
-					"week4" => "./week4", 
-					"week5" => "./week5", 
-					"week6" => "./week6", 
-					"week7" => "./week7"
+					"week2" => "week2", 
+					"week3" => "week3", 
+					"week4" => "week4", 
+					"week5" => "week5", 
+					"week6" => "week6", 
+					"week7" => "week7"
 				],
 				coreAssetRedirect: 'assets'
 			},
