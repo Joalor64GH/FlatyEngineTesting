@@ -18,7 +18,7 @@ typedef Mod =
 
 class ModHandler
 {
-	public static final MOD_DIRECTORY:String = './mods';
+	public static final MOD_DIRECTORY:String = 'mods';
 	public static final GLOBAL_MOD_ID:String = 'global';
 
 	public static var modList(default, null):Array<Mod> = [];
@@ -113,9 +113,9 @@ class ModHandler
 			framework: OPENFL,
 			frameworkParams: {
 				assetLibraryPaths: [
-					"default" => "./preload", // ./preload
-					"songs" => "./songs", 
-					"shared" => "./", 
+					"default" => "preload",
+					"songs" => "songs", 
+					"shared" => "shared", 
 					"week2" => "./week2", 
 					"week3" => "./week3", 
 					"week4" => "./week4", 
