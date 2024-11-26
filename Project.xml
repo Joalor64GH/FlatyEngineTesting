@@ -4,17 +4,6 @@
 
 	<app title="Friday Night Funkin': Flaty Engine" file="FlatyEngine" packageName="com.stilic.flatyengine" package="com.stilic.flatyengine" main="Main" version="0.2.8" company="stilic" />
 
-	<!--Switch Export with Unique ApplicationID and Icon-->
-	<set name="APP_ID" value="0x0100f6c013bbc000" />
-
-	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
-		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
-	<!-- <app preloader="Preloader" resizable="true" /> -->
-	<app preloader="flixel.system.FlxPreloader" />
-
-	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
-	<set name="SWF_VERSION" value="11.8" />
-
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
@@ -38,7 +27,7 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
-	<classpath path="source" />
+	<source path="source" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web" />
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web" />
@@ -85,19 +74,15 @@
 	<assets path="assets/week7" library="week7" exclude="*.ogg" if="web" />
 	<assets path="assets/week7" library="week7" exclude="*.mp3|*.mp4" unless="web" />
 
-	<assets path="example_mods" rename="mods" embed="false" />
+	<assets path="mods" embed="false" />
 	<assets path="art/readme.txt" rename="do NOT readme.txt" />
 
-	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
-		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
-		THEN UHHH I USED THE NAME OF THE FONT WITH SETFORMAT() ON THE TEXT!!!
-		NOT USING A DIRECT THING TO THE ASSET!!!
-	-->
-	<assets path="assets/fonts" embed="true" />
+	<section if="desktop">
+		<assets path="alsoft.ini" if="windows" />
+		<assets path="alsoft.ini" rename="alsoft.conf" unless="windows" />
+	</section>
 
 	<!-- _______________________________ Libraries ______________________________ -->
-
-	<haxedev set="webgl" if="html5" />
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
@@ -105,10 +90,10 @@
 	<haxelib name="flxanimate" />
 
 	<haxelib name="polymod" if="desktop" unless="neko" />
-	<haxelib name="discord_rpc" if="desktop" unless="neko" />
+	<haxelib name="linc_discord-rpc" if="desktop" unless="neko" />
 	<haxelib name="hxCodec" if="html5 || windows" unless="32bits" />
 
-	<haxelib name="hxcpp-debug-server" if="debug"/>
+	<haxelib name="hxcpp-debug-server" if="desktop debug"/>
 
 	<!-- ________________________________ Defines _______________________________ -->
 
@@ -132,8 +117,16 @@
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
 	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
 
+	<haxedef name="HXC_LIBVLC_LOGGING" if="debug" />
+
 	<!--Enable HScript fine error reporting at parsing time-->
 	<haxedef name="hscriptPos" if="hscript" />
+	<haxedef name="analyzer-optimize" />
+	<haxedef name="no-deprecation-warnings" />
+	<haxedef name="message.reporting" value="pretty" />
+
+	<haxeflag name="--macro" value="allowPackage('flash')" />
+	<haxeflag name="--macro" value="include('my.pack')" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 

@@ -52,7 +52,7 @@ class ModHandler
 			savedModList = new Map<String, Bool>();
 			doSave = true;
 		}
-		for (modMetadata in Polymod.scan(MOD_DIRECTORY))
+		for (modMetadata in Polymod.scan({MOD_DIRECTORY}))
 		{
 			if (modMetadata.id == GLOBAL_MOD_ID)
 				continue;
@@ -106,9 +106,10 @@ class ModHandler
 			modRoot: MOD_DIRECTORY,
 			dirs: dirs,
 			customFilesystem: fs,
-			framework: FLIXEL,
+			framework: OPENFL,
 			frameworkParams: {
-				assetLibraryPaths: libs
+				assetLibraryPaths: libs,
+				coreAssetRedirect: 'assets'
 			}
 		});
 	}
